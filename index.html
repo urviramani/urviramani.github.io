@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urvi Ramani - Flutter Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+            color: #e0e0e0;
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(2, 190, 217, 0.2);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #02bed9, #0284d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #02bed9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .code-line {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: rgba(2, 190, 217, 0.15);
+            white-space: nowrap;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); }
+            100% { transform: translateY(-100vh) translateX(50px); }
+        }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #02bed9, #0284d9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 60px;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 0 40px rgba(2, 190, 217, 0.5);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(2, 190, 217, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(2, 190, 217, 0.8); }
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #02bed9, #0284d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .title {
+            font-size: 1.5em;
+            color: #02bed9;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #b0b0b0;
+            transition: color 0.3s;
+        }
+
+        .contact-item:hover {
+            color: #02bed9;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(2, 190, 217, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: #02bed9;
+            box-shadow: 0 10px 40px rgba(2, 190, 217, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #02bed9, #0284d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: #b0b0b0;
+            margin-top: 10px;
+        }
+
+        /* Skills Section */
+        .section {
+            margin: 80px 0;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #02bed9;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(2, 190, 217, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: scale(1.05);
+            border-color: #02bed9;
+            background: rgba(2, 190, 217, 0.1);
+        }
+
+        .skill-category {
+            font-weight: bold;
+            color: #02bed9;
+            margin-bottom: 10px;
+        }
+
+        .skill-list {
+            color: #b0b0b0;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .more-projects-btn {
+            margin: 40px auto 0;
+            display: block;
+        }
+
+        .hidden-projects {
+            display: none;
+        }
+
+        .hidden-projects.show {
+            display: block;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(2, 190, 217, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: #02bed9;
+            box-shadow: 0 10px 30px rgba(2, 190, 217, 0.2);
+        }
+
+        .project-title {
+            font-size: 1.5em;
+            color: #02bed9;
+            margin-bottom: 15px;
+        }
+
+        .project-desc {
+            color: #b0b0b0;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin: 80px 0;
+            padding: 60px 20px;
+            background: rgba(2, 190, 217, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(2, 190, 217, 0.3);
+        }
+
+        .cta-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #02bed9;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2em;
+            color: #b0b0b0;
+            margin-bottom: 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #02bed9, #0284d9);
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(2, 190, 217, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(2, 190, 217, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #02bed9;
+            border: 2px solid #02bed9;
+        }
+
+        .btn-secondary:hover {
+            background: #02bed9;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid rgba(2, 190, 217, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .title { font-size: 1.2em; }
+            .section-title { font-size: 2em; }
+            .cta-title { font-size: 1.8em; }
+            .contact-info { gap: 15px; }
+            .nav-menu { 
+                gap: 15px;
+                font-size: 0.9em;
+            }
+            .nav-logo { font-size: 1.2em; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <div class="nav-container">
+            <div class="nav-logo">URVI RAMANI</div>
+            <ul class="nav-menu">
+                <li><a class="nav-link" onclick="scrollToSection('summary')">Summary</a></li>
+                <li><a class="nav-link" onclick="scrollToSection('skills')">Skills</a></li>
+                <li><a class="nav-link" onclick="scrollToSection('projects')">Projects</a></li>
+                <li><a class="nav-link" onclick="scrollToSection('contact')">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="bg-animation" id="bgAnimation"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Flutter Developer</h1> 
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>ramaniurvi1@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>+91 90238 32610</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>India</span>
+                </div>
+            </div>
+            <div class="btn-group" style="margin-top: 30px;">
+                <button onclick="scrollToSection('projects')" class="btn btn-primary">View Projects</button>
+                <button onclick="scrollToSection('contact')" class="btn btn-secondary">Get in Touch</button>
+            </div>
+        </header>
+
+        <section class="stats">
+            <div class="stat-card" style="animation-delay: 0.2s">
+                <div class="stat-number">3.5+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card" style="animation-delay: 0.4s">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Projects Delivered</div>
+            </div>
+            <div class="stat-card" style="animation-delay: 0.6s">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Client Satisfaction</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2  id="summary" class="section-title">Professional Summary</h2>
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(2, 190, 217, 0.2); border-radius: 15px; padding: 30px; line-height: 1.8; color: #b0b0b0;">
+                Experienced Flutter developer with 3.5+ years of expertise in mobile app development. Specialized in creating high-performance applications with seamless integrations and user-friendly interfaces. Proven track record in payment gateways, real-time features, and complex state management. Passionate about transforming business requirements into elegant technical solutions.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title" id="skills">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-category">Languages</div>
+                    <div class="skill-list">Dart • C • C++ • Java</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-category">Development Tools</div>
+                    <div class="skill-list">Android Studio • VS Code</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-category">Database</div>
+                    <div class="skill-list">MySQL • Firebase</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-category">State Management</div>
+                    <div class="skill-list">GetX • Provider • BloC</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-category">Local Storage</div>
+                    <div class="skill-list">Sqflite • Shared Preferences • Hive</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-category">Payment Integration</div>
+                    <div class="skill-list">RevenueCat • Stripe • PayU</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-category">Real-time</div>
+                    <div class="skill-list">Socket.IO • Firebase</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="projects">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-title">UniEvent</div>
+                    <div class="project-desc">Event management platform enabling users to create, join, and manage events with integrated payment processing for seamless participation.</div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">PorterJets</div>
+                    <div class="project-desc">Flight booking application supporting one-way, round-trip, and multi-destination routes with comprehensive search and booking capabilities.</div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Adventure</div>
+                    <div class="project-desc">Dual-flow social and dating app with subscription tiers (Basic to Diamond), group creation, and interest-based matching system.</div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Ratelink</div>
+                    <div class="project-desc">Professional networking platform with personalized recommendations, connection requests, and premium features for enhanced networking.</div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Delivery Mate</div>
+                    <div class="project-desc">Comprehensive delivery solution with separate user and driver apps featuring real-time tracking, order management, and P2P delivery.</div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Spherview</div>
+                    <div class="project-desc">Drone booking platform with media sharing capabilities, group bookings, and real-time availability checking with public/private galleries.</div>
+                </div>
+                <div class="project-card hidden-projects">
+                    <div class="project-title">Trailer App</div>
+                    <div class="project-desc">Comprehensive vehicle maintenance app for finding and purchasing vehicle parts online, booking services, and locating service centers.</div>
+                </div>
+                <div class="project-card hidden-projects">
+                    <div class="project-title">Hunting App</div>
+                    <div class="project-desc">Community platform connecting hunters to share hunting plans, notify active hunts, and chat with fellow members for coordinated activities.</div>
+                </div>
+                <div class="project-card hidden-projects">
+                    <div class="project-title">Blue Star Tab App</div>
+                    <div class="project-desc">QR code scanning and direct access app for videos and PDFs with intelligent download management and seamless background file processing.</div>
+                </div>
+                <div class="project-card hidden-projects">
+                    <div class="project-title">Vayu</div>
+                    <div class="project-desc">Bus management app with barcode scanning for details, route display, interactive Google Maps visualization, and route confirmation features.</div>
+                </div>
+                <div class="project-card hidden-projects">
+                    <div class="project-title">Sanjog</div>
+                    <div class="project-desc">Matrimonial platform with detailed profiles, personalized match suggestions, secure chat, and multiple subscription tiers (Free, Basic, Premium).</div>
+                </div>
+                <div class="project-card hidden-projects">
+                    <div class="project-title">Self Drivz</div>
+                    <div class="project-desc">Car rental platform with verified vehicles, complete insurance, flexible rental options, 24/7 assistance, and convenient doorstep delivery.</div>
+                </div>
+                <div class="project-card hidden-projects">
+                    <div class="project-title">Club Sulaimani</div>
+                    <div class="project-desc">Digital restaurant app with menu browsing, order customization, loyalty rewards, and real-time notifications for deals and order status.</div>
+                </div>
+                <div class="project-card hidden-projects">
+                    <div class="project-title">Kirana Quick</div>
+                    <div class="project-desc">Flutter-based grocery delivery app with real-time listings, easy search and filtering, secure checkout, and quick doorstep delivery service.</div>
+                </div>
+                <div class="project-card hidden-projects">
+                    <div class="project-title">Janki ERP</div>
+                    <div class="project-desc">Employee management system for task assignments, meeting scheduling, progress tracking, and enhanced team collaboration on a centralized platform.</div>
+                </div>
+            </div>
+            <button onclick="toggleAllProjects()" class="btn btn-primary more-projects-btn" id="moreProjectsBtn">More Projects</button>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title" id="contact">Get in Touch</h2>
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(2, 190, 217, 0.2); border-radius: 15px; padding: 40px; text-align: center;">
+                <h3 style="color: #02bed9; font-size: 2em; margin-bottom: 20px;">Ready to Transform Your Ideas?</h3>
+                <p style="color: #b0b0b0; font-size: 1.2em; line-height: 1.8; max-width: 600px; margin: 0 auto 30px;">
+                    Available worldwide for your next project. Let's collaborate and create exceptional digital experiences together. I respond within 24 hours!
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px;">
+                    <div style="background: rgba(2, 190, 217, 0.1); border: 1px solid rgba(2, 190, 217, 0.3); border-radius: 10px; padding: 25px;">
+                        <div style="font-size: 3em; margin-bottom: 10px;">📧</div>
+                        <div style="color: #02bed9; font-weight: bold; margin-bottom: 5px;">Email</div>
+                        <div style="color: #b0b0b0;">ramaniurvi1@gmail.com</div>
+                    </div>
+                    <div style="background: rgba(2, 190, 217, 0.1); border: 1px solid rgba(2, 190, 217, 0.3); border-radius: 10px; padding: 25px;">
+                        <div style="font-size: 3em; margin-bottom: 10px;">🌍</div>
+                        <div style="color: #02bed9; font-weight: bold; margin-bottom: 5px;">Location</div>
+                        <div style="color: #b0b0b0;">Available Worldwide</div>
+                    </div>
+                    <div style="background: rgba(2, 190, 217, 0.1); border: 1px solid rgba(2, 190, 217, 0.3); border-radius: 10px; padding: 25px;">
+                        <div style="font-size: 3em; margin-bottom: 10px;">⚡</div>
+                        <div style="color: #02bed9; font-weight: bold; margin-bottom: 5px;">Response Time</div>
+                        <div style="color: #b0b0b0;">Within 24 hours</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Urvi Ramani. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const offset = 80; // Height of fixed header
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Toggle all projects
+        function toggleAllProjects() {
+            const hiddenProjects = document.querySelectorAll('.hidden-projects');
+            const btn = document.getElementById('moreProjectsBtn');
+            
+            hiddenProjects.forEach(project => {
+                project.classList.toggle('show');
+            });
+            
+            if (btn.textContent === 'More Projects') {
+                btn.textContent = 'Show Less';
+            } else {
+                btn.textContent = 'More Projects';
+            }
+        }
+
+        // Animated background with code snippets
+        const bgAnimation = document.getElementById('bgAnimation');
+        const codeSnippets = [
+            'class FlutterApp extends StatelessWidget {',
+            'Widget build(BuildContext context) {',
+            'return MaterialApp(',
+            'setState(() { });',
+            'async await Future.delayed(',
+            'Navigator.push(context,',
+            'provider.listen(',
+            'StreamBuilder<T>(',
+            'firebase.collection(',
+            'socket.emit("data",',
+        ];
+
+        function createCodeLine() {
+            const line = document.createElement('div');
+            line.className = 'code-line';
+            line.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+            line.style.left = Math.random() * 100 + '%';
+            line.style.animationDuration = (15 + Math.random() * 10) + 's';
+            line.style.animationDelay = Math.random() * 5 + 's';
+            bgAnimation.appendChild(line);
+
+            setTimeout(() => line.remove(), 25000);
+        }
+
+        // Create initial code lines
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createCodeLine, i * 1000);
+        }
+
+        // Continue creating code lines
+        setInterval(createCodeLine, 2000);
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.section, .project-card, .skill-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
